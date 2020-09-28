@@ -11,16 +11,18 @@
  * - returns the name of the channel
  ****************************************************************/
 function getChannelName(channel) {
-  // Your code here
+  let key ="name"
+  return channel[key]
 }
-
+//console.log(getChannelName({'name': "Mariam", "Age":21}))
 /**************************************************************
  * numberOfVideos(channel)
  * - recieves a channel object
  * - returns the number of videos that channel has
  ****************************************************************/
 function numberOfVideos(channel) {
-  // Your code here
+  let key = "videos"
+  return channel[key].length
 }
 
 /**************************************************************
@@ -33,9 +35,11 @@ function numberOfVideos(channel) {
  * BONUS: use iteration method `.some()`
  ****************************************************************/
 function channelHasVideo(videoTitle, channel) {
-  // Your code here
+  let k="videos"
+  return channel[k].some(value => value.title==videoTitle)
+ 
 }
-
+//console.log(channelHasVideo("h",{name:"mariam",age : 21, videos:[{title:"meme", time: "120 mins"},{title : "toto",time: "60 mins"}]}))
 /**************************************************************
  * getChannelByName(channelName, channels):
  * - receives a channel name (string)
@@ -45,9 +49,10 @@ function channelHasVideo(videoTitle, channel) {
  * BONUS: use iteration method `.find()`
  ****************************************************************/
 function getChannelByName(channelName, channels) {
-  // Your code here
+  let key = "name"
+  return channels.find(value => value[key] == channelName)
 }
-
+//console.log(getChannelByName("nora", [{'name': "Mariam", "Age":21},{'name': "nora", "Age":22}]))
 /**************************************************************
  * getChannelByVideoTitle(videoTitle, channels):
  * - receives a video title (string)
@@ -57,9 +62,12 @@ function getChannelByName(channelName, channels) {
  * BONUS: use iteration methods `.find()` and `.some()`
  ****************************************************************/
 function getChannelByVideoTitle(videoTitle, channels) {
-  // Your code here
-}
+  let k="videos"
+  //return channels.find(value => value[k]==videoTitle);
+    return channels.find(channel => channel[k].some(video => video.title == videoTitle))
 
+}
+//console.log(getChannelByName("toto", [{name: "Mariam", Age:21,videos: [{title:"meme", time: "120 mins"},{title : "nono",time: "60 mins"}]},{name: "nora", Age:22,videos: [{title:"haha", time: "120 mins"},{title : "toto",time: "60 mins"}]}]))
 /**************************************************************
  * searchChannels(query, channels):
  * - receives a query (string)
@@ -69,7 +77,10 @@ function getChannelByVideoTitle(videoTitle, channels) {
  * Hint: use string method `.includes()` and iteration method `.filter()`
  ****************************************************************/
 function searchChannels(query, channels) {
-  // Your code here
+  let key = "name"
+  let key2 = "description"
+  
+  return channels.filter(value => value[key].includes(query) || value[key2].includes(query))
 }
 
 /**************************************************************
@@ -80,7 +91,10 @@ function searchChannels(query, channels) {
  * BONUS: use iteration method `.reduce()`
  ****************************************************************/
 function totalVideosDuration(channel) {
-  // Your code here
+  let result=0
+  let k="videos"
+  channel[k].forEach(value => result=result+value.duration)
+   return result
 }
 
 /**************************************************************
@@ -92,7 +106,10 @@ function totalVideosDuration(channel) {
  * BONUS: use iteration method `.sort()`
  ****************************************************************/
 function channelWithMostContent(channels) {
-  // Your code here
+  
+   channels.sort(channel => totalVideosDuration(channel))
+   return channels[0]
+
 }
 
 /**************************************************************
@@ -103,7 +120,15 @@ function channelWithMostContent(channels) {
  * BONUS: use iteration method `.sort()`
  ****************************************************************/
 function longestChannelName(channels) {
-  // Your code here
+  
+  let key="name"
+  let longest = channels[0]
+  channels.forEach(channel => {
+    if (channel.name.length > longest.name.length){
+      longest=channel
+    }
+  })
+   return longest
 }
 
 module.exports = {
